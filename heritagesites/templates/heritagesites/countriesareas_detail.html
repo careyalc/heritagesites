@@ -1,0 +1,89 @@
+{% extends 'heritagesites/base.html' %}
+
+<!-- {% load staticfiles %} -->
+{% block content %}
+
+
+<h2>{{countryarea.country_area_name | safe}}</h2>
+
+
+{% if countryarea.m49_code  %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>M49 Code</p>
+    </div>
+    <div class="col-sm-10">
+      {{countryarea.m49_code | safe}} 
+    </div>
+  </div>
+{% endif %}
+
+
+{% if countryarea.iso_alpha3_code %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>ISO Alpha 3 code</p>
+    </div>
+    <div class="col-sm-10">
+      {{countryarea.iso_alpha3_code | safe}}
+    </div>
+  </div>
+{% endif %}
+
+
+<!-- below, dot notation is like jumping from table to table to get the values we want -->
+
+{% if countryarea.location.region.region_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>Region</p>
+    </div>
+    <div class="col-sm-10">
+      {{countryarea.location.region.region_name | safe}} 
+      <!-- above, in prof code, he has country instead of countryarea ; he also doesnt have safe-->
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% if countryarea.locaiton.sub_region.sub_region_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>Subregion</p>
+    </div>
+    <div class="col-sm-10">
+      {{countryarea.location.sub_region.sub_region_name | safe}}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% if countryarea.location.intermediate_region.intermediate_region_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>Intermediate Region</p>
+    </div>
+    <div class="col-sm-10">
+      {{countryarea.location.intermediate_region.intermediate_region_name | safe}}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% if countryarea.dev_status.dev_status_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>Development Status</p>
+    </div>
+    <div class="col-sm-10">
+      {{countryarea.dev_status.dev_status_name | safe}}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% endblock content %}
