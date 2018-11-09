@@ -74,7 +74,7 @@ main {
 
 .container-fluid {
     background-color: transparent;
-    padding: 0.5rem 0.5rem;
+    /*padding: 0.5rem 0.5rem;*/
 }
 
 /*
@@ -124,7 +124,7 @@ footer p {
  */
 
 h1, h2, h3, h4 {
-    color: #E85A4F;
+    color: #E85A4F; /*RED
     /* margin-top: 1em; */
     margin-bottom: 0.5rem;
     text-align: left;
@@ -167,4 +167,14 @@ a:visited {
     /*color: #EDF5E1;*/
     color: grey;
     text-decoration: none;
+}
+
+.btn-outline-success {
+    color: #E85A4F;
+    border-color: #E85A4F;
+}
+
+.btn-outline-success:hover {
+    color: white;
+    background-color: #E85A4F;
 }

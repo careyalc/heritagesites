@@ -1,109 +1,5 @@
-# # This is an auto-generated Django model module.
-# # You'll have to do the following manually to clean this up:
-# #   * Rearrange models' order
-# #   * Make sure each model has one field with primary_key=True
-# #   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
-# #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# # Feel free to rename the models, but don't rename db_table values or field names.
-# from django.db import models
-
-
-# class CountryArea(models.Model):
-#     country_area_id = models.AutoField(primary_key=True)
-#     country_area_name = models.CharField(unique=True, max_length=100)
-#     region = models.ForeignKey('Region', models.DO_NOTHING, blank=True, null=True)
-#     sub_region = models.ForeignKey('SubRegion', models.DO_NOTHING, blank=True, null=True)
-#     intermediate_region = models.ForeignKey('IntermediateRegion', models.DO_NOTHING, blank=True, null=True)
-#     m49_code = models.SmallIntegerField()
-#     iso_alpha3_code = models.CharField(max_length=3)
-#     dev_status = models.ForeignKey('DevStatus', models.DO_NOTHING, blank=True, null=True)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'country_area'
-
- 
-# class DevStatus(models.Model):
-#     dev_status_id = models.AutoField(primary_key=True)
-#     dev_status_name = models.CharField(unique=True, max_length=25)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'dev_status'
-
-
-# class HeritageSite(models.Model):
-#     heritage_site_id = models.AutoField(primary_key=True)
-#     site_name = models.CharField(unique=True, max_length=255)
-#     description = models.TextField()
-#     justification = models.TextField(blank=True, null=True)
-#     date_inscribed = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     longitude = models.DecimalField(max_digits=11, decimal_places=8, blank=True, null=True)
-#     latitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
-#     area_hectares = models.FloatField(blank=True, null=True)
-#     heritage_site_category = models.ForeignKey('HeritageSiteCategory', models.DO_NOTHING)
-#     transboundary = models.IntegerField()
-
-#     class Meta:
-#         managed = False
-#         db_table = 'heritage_site'
-
-
-# class HeritageSiteCategory(models.Model):
-#     category_id = models.AutoField(primary_key=True)
-#     category_name = models.CharField(unique=True, max_length=25)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'heritage_site_category'
-
-
-# class HeritageSiteJurisdiction(models.Model):
-#     heritage_site_jurisdiction_id = models.AutoField(primary_key=True)
-#     heritage_site = models.ForeignKey(HeritageSite, models.DO_NOTHING)
-#     country_area = models.ForeignKey(CountryArea, models.DO_NOTHING)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'heritage_site_jurisdiction'
-
-
-# class IntermediateRegion(models.Model):
-#     intermediate_region_id = models.AutoField(primary_key=True)
-#     intermediate_region_name = models.CharField(unique=True, max_length=100)
-#     sub_region = models.ForeignKey('SubRegion', models.DO_NOTHING)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'intermediate_region'
-
-
-# class Region(models.Model):
-#     region_id = models.AutoField(primary_key=True)
-#     region_name = models.CharField(unique=True, max_length=100)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'region'
-
-
-# class SubRegion(models.Model):
-#     sub_region_id = models.AutoField(primary_key=True)
-#     sub_region_name = models.CharField(unique=True, max_length=100)
-#     region = models.ForeignKey(Region, models.DO_NOTHING)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'sub_region'
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
-
 from django.db import models
+from django.urls import reverse
 
 
 class CountryArea(models.Model):
@@ -174,7 +70,8 @@ class HeritageSite(models.Model):
     site_name = models.CharField(unique=True, max_length=255)
     description = models.TextField()
     justification = models.TextField(blank=True, null=True)
-    date_inscribed = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # date_inscribed = models.TextField(blank=True, null=True)  # This field type is a guess.
+    date_inscribed = models.IntegerField(blank=True, null=True)
     longitude = models.DecimalField(max_digits=11, decimal_places=8, blank=True, null=True)
     latitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
     area_hectares = models.FloatField(blank=True, null=True)
@@ -200,6 +97,10 @@ class HeritageSite(models.Model):
             country_area.country_area_name for country_area in self.country_area.all()[:25])
 
     country_area_display.short_description = 'Country or Area'
+
+    def get_absolute_url(self):
+        # return reverse('site_detail', args=[str(self.id)])
+        return reverse('site_detail', kwargs={'pk': self.pk})
 
 
 '''
