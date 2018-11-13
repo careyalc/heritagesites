@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import secrets
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -149,9 +150,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '203910364687-dj5m4pph9inun9dphk721p7n671i7jjs.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'AxZbMrEUQRTtsess3EWX67pN'
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '203910364687-dj5m4pph9inun9dphk721p7n671i7jjs.apps.googleusercontent.com'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'AxZbMrEUQRTtsess3EWX67pN'
+# SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 LOGIN_URL = '/auth/login/google-oauth2/'
 # LOGIN_URL = 'login'
