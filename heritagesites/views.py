@@ -4,6 +4,9 @@ from django.views import generic
 
 from .models import CountryArea, HeritageSite, HeritageSiteJurisdiction
 from .forms import HeritageSiteForm
+from .filters import HeritageSiteFilter
+import django_filters
+from django_filters.views import FilterView
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -173,4 +176,9 @@ class SiteDeleteView(generic.DeleteView):
 		self.object.delete()
 
 		return HttpResponseRedirect(self.get_success_url())
+
+
+class SiteFilterView(FilterView):
+	filterset_class = HeritageSiteFilter
+	template_name = 'heritagesites/site_filter.html'
 
