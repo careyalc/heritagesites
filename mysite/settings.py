@@ -32,17 +32,28 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api.apps.ApiConfig',
     'heritagesites.apps.HeritagesitesConfig',
     'crispy_forms', 
     'django_filters',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+    'rest_framework_swagger',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'social_django',
-    'test_without_migrations',
+    'test_without_migrations'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -162,4 +175,34 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/' 
 #The social_django app uses the LOGIN_URL setting to redirect the user to Google's authentication page. The LOGIN_REDIRECT_URL and LOGOUT_REDIRECT_URL settings determine where users will be redirected after logging in or logging out.
 
+# Use Django's standard `django.contrib.auth` permissions, or allow read-only access for
+# unauthenticated users.
+# Default Auth: Basic (retired in favor of TokenAuth)
+# Default Auth: SessionAuth (required by browsable API)
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        # 'rest_framework.permissions.AllowAny'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+# A list of origin hostnames that are authorized to make cross-site HTTP requests.
+# The value 'null' can also appear in this list, and will match the Origin: null header
+# that is used in “privacy-sensitive contexts”, such as when the client is running from
+# a file:// domain. Defaults to [].
+# Port 3000 is the default port for React apps.
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1:3000/'
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SITE_ID = 1 #django-allauth uses Django's site framework and requires that a SITE_ID be specified. Registration emails will also be generated but in lieu of setting up an email server, the messages will be directed to the console.
 
